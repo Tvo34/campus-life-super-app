@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Events</title>
+  <title>Map</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -20,16 +20,24 @@
 
 <main>
 
-  <h2> Campus Events</h2>
+  <h2> Campus Map</h2>
 
-  <button onclick="loadEvents()">Load Events</button>
+  <!-- Google Map Embed -->
+  <iframe
+    src="https://maps.google.com/maps?q=Chicago&t=&z=13&ie=UTF8&iwloc=&output=embed"
+    width="100%"
+    height="300">
+  </iframe>
 
-  <ul id="eventList"></ul>
+  <br><br>
+
+  <button onclick="showLocation()">Show My Location</button>
+  <p id="locationText"></p>
 
 </main>
 
 <footer>
-  <p>Jennifer Vo </p>
+  <p> Jennifer Vo </p>
 </footer>
 
 <script src="js/script.js"></script>

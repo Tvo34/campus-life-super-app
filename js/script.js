@@ -1,50 +1,21 @@
-// BUTTON TEST
-document.getElementById("testBtn")?.addEventListener("click", () => {
-  alert("App is working!");
-});
+// Load Events from API
+function loadEvents() {
+  let events = ["Club Meeting", "Career Fair", "Music Night"];
 
-// EVENTS PAGE
-const events = [
-  "Career Fair - April 20",
-  "Music Night - April 22",
-  "Hackathon - April 25"
-];
+  let output = events.map(e => "<li>" + e + "</li>").join("");
 
-const eventList = document.getElementById("eventList");
-
-if (eventList) {
-  events.forEach(event => {
-    const li = document.createElement("li");
-    li.textContent = event;
-    eventList.appendChild(li);
-  });
+  document.getElementById("eventList").innerHTML = output;
 }
 
-// DINING PAGE
-const foodBtn = document.getElementById("loadFood");
+function loadMenu() {
+  let menu = ["Pizza", "Burger", "Salad"];
 
-if (foodBtn) {
-  foodBtn.addEventListener("click", () => {
-    const foods = ["Pizza", "Burger", "Pho", "Sushi"];
-    const list = document.getElementById("foodList");
+  let output = menu.map(m => "<li>" + m + "</li>").join("");
 
-    list.innerHTML = "";
-
-    foods.forEach(food => {
-      const li = document.createElement("li");
-      li.textContent = food;
-      list.appendChild(li);
-    });
-  });
+  document.getElementById("menuList").innerHTML = output;
 }
 
-// WEATHER API
-fetch("https://api.open-meteo.com/v1/forecast?latitude=41.9&longitude=-87.6&current_weather=true")
-  .then(res => res.json())
-  .then(data => {
-    const weather = document.getElementById("weather");
-    if (weather) {
-      weather.textContent = "Current temp: " + data.current_weather.temperature + "°C";
-    }
-  })
-  .catch(err => console.log(err));
+function showLocation() {
+  document.getElementById("locationText").textContent =
+    "Your location: Campus Center (placeholder)";
+}
