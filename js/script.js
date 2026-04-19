@@ -38,7 +38,7 @@ function loadWeather() {
     });
 }
 
-// ===== AUTO LOAD WHEN PAGE LOAD =====
+
 window.onload = function () {
   loadWeather();
 };
