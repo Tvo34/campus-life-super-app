@@ -2,60 +2,158 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Campus Life Super App</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  
 
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f5f7fa;
+    }
+
+    .navbar {
+      background-color: #1e2a38;
+    }
+
+    .navbar-brand, .nav-link {
+      color: white !important;
+    }
+
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+  </style>
 </head>
 
 <body>
 
-  <!--Navar Section-->
-<header>
-  <h1> Campus Life Super App</h1>
-  <nav>
-    <a href="home.html">Home</a>
-    <a href="events.html">Events</a>
-    <a href="dining.html">Dining</a>
-    <a href="map.html">Map</a>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">Campus Life Super App</a>
+
+      <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        ☰
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Dining</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Map</a></li>
+        </ul>
+      </div>
+    </div>
   </nav>
-</header>
 
-<!--Main Content-->
-<main>
+  <!-- MAIN -->
+  <main class="container mt-4">
 
-  <h2>Welcome </h2>
-  <p>Your all-in-one campus companion!</p>
+    <h2>Welcome</h2>
+    <p>Your all-in-one campus companion!</p>
 
-  <div class="features">
+    <!-- CARDS -->
+    <div class="row mt-3">
 
-    <div class="card">
-      <h3> Events</h3>
-      <p>Discover campus events.</p>
-      <a href="events.html">View Events →</a>
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card p-3">
+          <h5>Events</h5>
+          <p>Discover campus events.</p>
+          <button class="btn btn-primary" onclick="loadEvents()">View Events</button>
+          <ul id="eventList" class="mt-2"></ul>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card p-3">
+          <h5>Dining</h5>
+          <p>Check dining options.</p>
+          <button class="btn btn-success" onclick="loadMenu()">See Dining</button>
+          <ul id="menuList" class="mt-2"></ul>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card p-3">
+          <h5>Map</h5>
+          <p>Find campus locations.</p>
+          <button class="btn btn-warning" onclick="showLocation()">Show Location</button>
+          <p id="locationText" class="mt-2"></p>
+        </div>
+      </div>
+
     </div>
 
-    <div class="card">
-      <h3> Dining</h3>
-      <p>Check dining options.</p>
-      <a href="dining.html">See Dining →</a>
+    <!-- WEATHER -->
+    <div class="mt-4">
+      <h4>Campus Weather</h4>
+      <p id="weather">Loading weather...</p>
     </div>
 
-    <div class="card">
-      <h3> Map</h3>
-      <p>Find campus locations.</p>
-      <a href="map.html">Open Map →</a>
-    </div>
+  </main>
 
-  </div>
+  <!-- FOOTER -->
+  <footer class="text-center mt-5 p-3">
+    <p>© 2026 Campus Life App</p>
+  </footer>
 
-</main>
+  <!-- JS -->
+  <script>
+    // EVENTS
+    function loadEvents() {
+      let events = ["Club Meeting", "Career Fair", "Music Night"];
+      let output = events.map(e => "<li>" + e + "</li>").join("");
+      document.getElementById("eventList").innerHTML = output;
+    }
 
-<footer>
-  <p> Jennifer Vo </p>
-</footer>
+    // MENU
+    function loadMenu() {
+      let menu = ["Pizza", "Burger", "Salad"];
+      let output = menu.map(m => "<li>" + m + "</li>").join("");
+      document.getElementById("menuList").innerHTML = output;
+    }
 
-<script src="script.js"></script> 
+    // LOCATION
+    function showLocation() {
+      document.getElementById("locationText").textContent =
+        "Your location: Campus Center (placeholder)";
+    }
+
+    // 🌦️ WEATHER (OPEN-METEO - NO API KEY)
+    function loadWeather() {
+      const lat = 41.8781;
+      const lon = -87.6298;
+
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+        .then(res => res.json())
+        .then(data => {
+          const temp = data.current_weather.temperature;
+          const wind = data.current_weather.windspeed;
+
+          document.getElementById("weather").textContent =
+            `Temperature: ${temp}°C | Wind: ${wind} km/h`;
+        })
+        .catch(() => {
+          document.getElementById("weather").textContent =
+            "Weather unavailable (sample: 18°C)";
+        });
+    }
+
+    // AUTO LOAD WEATHER
+    loadWeather();
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
